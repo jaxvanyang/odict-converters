@@ -9,9 +9,11 @@ from lxml import etree
 from theopendictionary import Dictionary as ODictionary
 from utils import Definition, DefinitionNode, Dictionary, Entry, Etymology, Group, Usage
 
+# from theopendictionary import POS_TAGS
+POS_TAGS = ['adj_pn', 'adj_kari', 'art', 'adj_ku', 'adj_nari', 'adj_na', 'adj_shiku', 'adj_t', 'adj_ix', 'n_adv', 'adv_to', 'adj_no', 'n_pref', 'n_suf', 'n_t', 'adj_f', 'v5b', 'v5g', 'v5k', 'v5m', 'v5n', 'v5r', 'v5r_i', 'v5aru', 'v5k_s', 'v5s', 'v5t', 'v5u', 'v5uru', 'v5u_s', 'v1', 'v1_s', 'vz', 'vk', 'v2b_s', 'v2b_k', 'v2d_s', 'v2d_k', 'v2g_s', 'v2g_k', 'v2h_s', 'v2h_k', 'v2k_s', 'v2k_k', 'v2m_s', 'v2m_k', 'v2n_s', 'v2r_s', 'v2r_k', 'v2s_s', 'v2t_s', 'v2t_k', 'v2a_s', 'v2w_s', 'v2y_s', 'v2y_k', 'v2z_s', 'vn', 'vr', 'vs_c', 'vs', 'vs_i', 'vs_s', 'v_unspec', 'v4b', 'v4g', 'v4h', 'v4k', 'v4m', 'v4n', 'v4r', 'v4s', 'v4t', 'abv', 'adf', 'adj', 'phr_adj', 'adv', 'phr_adv', 'aff', 'aux', 'aux_adj', 'aux_v', 'chr', 'cf', 'cls', 'contr', 'conj', 'conj_c', 'cop', 'ctr', 'det', 'expr', 'inf', 'intf', 'intj', 'vi', 'name', 'n', 'num', 'part', 'phr', 'postp', 'pref', 'prep', 'phr_prep', 'pron', 'propn', 'prov', 'punc', 'conj_s', 'suff', 'sym', 'vt', 'un', 'v']
+
 entries = {}
 data = []
-dict = Dictionary(name="English Wiktionary")
 dict_base = "dictionaries/wiktionary"
 cache_dir = "cache/wiktionary"
 
@@ -28,6 +30,10 @@ pos_map = {
     "article": "art",
     "character": "chr",
     "circumfix": "cf",
+    "circumpos": "cf",
+    "classifier": "cls",
+    "combining_form": "un", # should be stem, but we don't have the type
+    "contraction": "contr",
     "infix": "inf",
     "interfix": "intf",
     "noun": "n",
@@ -35,10 +41,19 @@ pos_map = {
     "phrase": "phr",
     "prefix": "pref",
     "prep_phrase": "phr_prep",
+    "proverb": "prov",
     "punct": "punc",
     "suffix": "suff",
     "symbol": "sym",
     "verb": "v",
+
+    # found in jpn
+    "adnominal": "adj_pn",
+    "counter": "ctr",
+    "romanization": "un", # TBD
+    "root": "un",
+    "soft-redirect": "un",
+    "syllable": "un",
 }
 
 lang_map = {
@@ -88,6 +103,8 @@ def download_dictionary(lang: str, outdir: str):
 
 
 def run(target_lang: str):
+    dict = Dictionary(name=f"{lang_map[target_lang]} Wiktionary")
+
     entries = {}
 
     dict_path = download_dictionary(target_lang, cache_dir)

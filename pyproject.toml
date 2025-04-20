@@ -11,8 +11,8 @@ requests = "^2.28.1"
 beautifulsoup4 = "^4.11.1"
 asyncio = "^3.4.3"
 alive-progress = "^2.4.1"
-lxml = "^4.9.1"
-theopendictionary = "^0.0.7"
+lxml = "^5.3.2"
+theopendictionary = "^1.4.0"
 ftputil = "^5.0.4"
 
 [build-system]
