@@ -66,7 +66,7 @@ def download_dictionary(lang: str, outdir: str):
             "Language not supported: %s. Must be one of %s" % (lang, lang_map.keys())
         )
 
-    url = "https://kaikki.org/dictionary/%s/kaikki.org-dictionary-%s.json" % (
+    url = "https://kaikki.org/dictionary/%s/kaikki.org-dictionary-%s.jsonl" % (
         lang_name,
         lang_name,
     )
